@@ -8,8 +8,8 @@ from .helper_functions import (
     shopping_get_latest_order_url,
     shopping_get_num_reviews,
     shopping_get_order_product_name_list,
-    shopping_get_order_product_option,
     shopping_get_order_product_quantity,
+    shopping_get_order_product_option,
     shopping_get_product_attributes,
     shopping_get_product_price,
     shopping_get_rating_as_percentage,
@@ -17,3 +17,32 @@ from .helper_functions import (
     shopping_get_sku_latest_review_rating,
     shopping_get_sku_latest_review_text,
 )
+
+# TVSC (Triple-View Semantic Consistency) components
+try:
+    from .tvsc_checker import (
+        TripleViewConsistencyChecker,
+        ObservationFilter,
+        RobustAgentWrapper,
+        VisualViewExtractor,
+        StructuralViewExtractor,
+        OCRViewExtractor,
+        TripleViewElement,
+        ConsistencyDecision,
+        BoundingBox,
+        OCRResult,
+        A11yNode,
+    )
+    from .robustness_evaluator import (
+        RobustnessEvaluator,
+        ConsistencyScoreEvaluator,
+        AttackDetectionEvaluator,
+        AdversarialAttackInjector,
+        RobustnessResult,
+        AttackConfig,
+        get_robustness_evaluators,
+    )
+    TVSC_AVAILABLE = True
+except ImportError as e:
+    TVSC_AVAILABLE = False
+    print(f"[Warning] TVSC components not available: {e}")
