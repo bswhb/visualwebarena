@@ -1,10 +1,10 @@
 # Cross-View Consistency Checking for Multimodal Web Agents under Adversarial UI Perturbations
 
-**Author Name 1<sup>1</sup>, Author Name 2<sup>2</sup>, Author Name 3<sup>3</sup>**
-<sup>1</sup>*Department, Institution 1, City, Country*
-<sup>2</sup>*Department, Institution 2, City, Country*
-<sup>3</sup>*Department, Institution 3, City, Country*
-`email1@domain.com`, `email2@domain.com`, `email3@domain.com`
+**Zixuan Wang<sup>1</sup>, Hanbo Wang<sup>2</sup>, Liang Song<sup>3</sup>**
+<sup>1</sup>*Hangzhou Dianzi University, Hangzhou, China*
+<sup>2</sup>*SmartekWorks, Shanghai, China*
+<sup>3</sup>*Fudan University, Shanghai, China*
+`23281528@hdu.edu.cn`, `hanbo.wang@smartekworks.com`, `email3@domain.com`
 
 **Abstract**
 
@@ -494,7 +494,7 @@ TVSC is designed as a defensive mechanism. However, the attack generation techni
 
 ## 6. Conclusion
 
-We presented **Triple-View Semantic Consistency (TVSC)**, a defense mechanism for multimodal web agents against adversarial UI perturbations. By enforcing alignment between visual, structural, and OCR views, TVSC significantly enhances agent robustness—improving success rates by **142.6%** relative under hybrid attacks. Our evaluation on VisualWebArena across 300 tasks and 5 attack types demonstrates the efficacy and generalizability of our approach.
+We presented **Triple-View Semantic Consistency (TVSC)**, a defense mechanism for multimodal web agents against adversarial UI perturbations. By enforcing alignment between visual, structural, and OCR views, TVSC significantly enhances agent robustness — improving success rates by **142.6%** relative under hybrid attacks. Our evaluation on VisualWebArena across 300 tasks and 5 attack types demonstrates the efficacy and generalizability of our approach.
 
 **Key Takeaways:**
 

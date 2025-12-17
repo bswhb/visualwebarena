@@ -2,6 +2,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{float}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{url}
@@ -28,12 +29,12 @@
 
 \title{Cross-View Consistency Checking for Multimodal Web Agents under Adversarial UI Perturbations}
 %\titlerunning{Cross-View Consistency Checking}
-\author{Author Name 1\inst{1} \and Author Name 2\inst{2} \and Author Name 3\inst{3}}
-\authorrunning{F. Author et al.}
-\institute{Department, Institution 1, City, Country \and
-Department, Institution 2, City, Country \and
-Department, Institution 3, City, Country\\
-\email{\{email1, email2, email3\}@domain.com}}
+\author{Zixuan Wang\inst{1} \and Hanbo Wang\inst{2} \and Liang Song\inst{3}}
+\authorrunning{Z. Wang et al.}
+\institute{Hangzhou Dianzi University, Hangzhou, China \and
+SmartekWorks, Shanghai, China \and
+Fudan University, Shanghai, China\\
+\email{23281528@hdu.edu.cn, hanbo.wang@smartekworks.com, email3@domain.com}}
 
 \maketitle
 
@@ -54,16 +55,20 @@ Existing defenses for adversarial examples in computer vision often focus on pix
 To address this gap, we introduce \textbf{Triple-View Semantic Consistency (TVSC)}. Our key insight is that a legitimate web element should exhibit semantic consistency across its visual appearance, its structural representation in the accessibility tree, and its recognized text content. Adversarial attacks typically disrupt this consistency to fool the agent (e.g., an element that looks like a ``Buy'' button but is labeled as ``Cancel'' in the accessibility tree, or vice versa).
 
 TVSC operates by extracting semantic information from three views:
-\begin{enumerate}
+\begin{itemize}
     \item \textbf{Visual View:} The pixel-level rendering of the element.
     \item \textbf{Structural View:} The accessibility tree node and its attributes.
     \item \textbf{OCR View:} The text recognized from the screen image via Optical Character Recognition.
-\end{enumerate}
+\end{itemize}
 
 We employ a lightweight consistency checking module that computes a coherence score among these three views. If the score falls below a learned threshold, the agent flags the element as potentially adversarial and triggers a fallback exploration strategy.
 
 Our contributions are as follows:
-\textbf{Contributions:} We formally characterize the threat landscape of Adversarial UI Perturbations targeting multimodal web agents, instituting a taxonomy comprising visual, structural, and hybrid attack vectors. To counter these threats, we introduce Triple-View Semantic Consistency (TVSC), a defense framework that enforces cross-modal alignment between visual, structural, and textual representations to identify malicious anomalies. We validate our approach through extensive experimentation on the VisualWebArena benchmark, showing that TVSC delivers substantial robustness gains against diverse adversarial perturbations while maintaining high performance on benign tasks.
+\begin{itemize}
+    \item We formalize the threat model of Adversarial UI Perturbations for multimodal web agents, categorizing attacks into visual, structural, and hybrid types.
+    \item We propose Triple-View Semantic Consistency (TVSC), a defense framework that leverages cross-modal alignment to detect anomalies.
+    \item We conduct extensive experiments on the VisualWebArena benchmark, demonstrating that TVSC significantly enhances robustness against a variety of adversarial attacks without compromising performance on benign tasks.
+\end{itemize}
 
 \section{Related Work}
 
@@ -119,7 +124,14 @@ We now describe the construction process for each view in detail.
 We consider an \textbf{interface-level adversary} whose objective is to induce \textbf{misoperation} (incorrect action execution) or \textbf{task failure} (inability to complete the assigned goal) while maintaining the page's visual plausibility for human users.
 
 \subsubsection{Capabilities}
-\textbf{Capabilities:} The adversary can apply visible or semi-visible perturbations to the frontend, denoted as a transformation function $\delta(\cdot)$. We categorize these into: (1) \textit{Layout \& Geometry Perturbation ($T_{layout}$)} (translating/scaling, changing columns); (2) \textit{Overlay \& Occlusion ($T_{overlay}$)} (transparent layers, z-index manipulation); (3) \textit{Text Mismatch / Homoglyph ($T_{homo}$)} (semantic inconsistencies, homoglyphs); (4) \textit{Hiding \& Clickjacking ($T_{hidden}$)} (`visibility`/`opacity` abuse); and (5) \textit{Timing \& Lazy Loading ($T_{timing}$)} (delaying elements, layout shifts).
+The adversary can apply visible or semi-visible perturbations to the frontend, denoted as a transformation function $\delta(\cdot)$. We categorize these into:
+\begin{itemize}
+    \item \textit{Layout \& Geometry Perturbation ($T_{layout}$)} (translating/scaling, changing columns); 
+    \item \textit{Overlay \& Occlusion ($T_{overlay}$)} (transparent layers, z-index manipulation); 
+    \item \textit{Text Mismatch / Homoglyph ($T_{homo}$)} (semantic inconsistencies, homoglyphs); 
+    \item \textit{Hiding \& Clickjacking ($T_{hidden}$)} (`visibility`/`opacity` abuse); 
+    \item \textit{Timing \& Lazy Loading ($T_{timing}$)} (delaying elements, layout shifts).
+\end{itemize}
 
 \subsubsection{Adversary Goals}
 \textbf{Adversary Goals:} The adversary aims to increase the \textit{Attack Success Rate (ASR)} (inducing misoperation) and decrease the \textit{Task Success Rate (SR)}, while maximizing \textit{Stealth} (minimizing perceptual anomalies for humans).
@@ -174,21 +186,21 @@ The goal is to minimize the expected risk $\mathcal{R}$ under the perturbation i
 subject to a constraint on the misoperation rate for critical actions $\mathcal{A}_{crit}$ (e.g., ``Pay'', ``Delete'').
 
 \subsection{Heuristic Observation Filtering}
-To complement the semantic consistency check, we implement a lightweight \texttt{ObservationFilter} module that operates on the structured observation dictionary. This module targets specific, known attack patterns that can be detected via rule-based heuristics before the expensive VLM inference:
-\begin{enumerate}
+To complement the semantic consistency check, we implement a lightweight \textbf{ObservationFilter} module that operates on the structured observation dictionary. This module targets specific, known attack patterns that can be detected via rule-based heuristics before the expensive VLM inference:
+\begin{itemize}
     \item \textbf{Prompt-Injection Detection:} We use regular expression patterns to detect phrases such as ``ignore previous instructions'' or ``your new task is'', which are standard signatures of prompt injection attacks embedded in the page text.
     \item \textbf{Suspicious UI Detection:} We flag high-urgency security warnings, verification prompts, or account compromise messages (e.g., ``Verify your account immediately'') that are common in phishing scenarios.
     \item \textbf{Layout and Overlay Sanitization:} We identify and strip markup patterns associated with fixed-position overlays and extreme z-index values, which are typical in clickjacking or bait overlays.
-\end{enumerate}
+\end{itemize}
 For each observation, the filter scans the text field, records matched patterns, and applies sanitization by replacing suspicious instructions with neutral placeholders or stripping the adversarial markup.
 
 \subsection{Robust Agent Architecture}
-We integrate the TVSC module and the Observation Filter into a \texttt{RobustPromptAgent}. The agent's decision-making process is wrapped as follows:
-\begin{enumerate}
-    \item \textbf{Pre-processing:} The raw observation from the browser is passed through the \texttt{ObservationFilter}. If attacks are detected, the observation is sanitized in-place.
+We integrate the TVSC module and the Observation Filter into a \textbf{RobustPromptAgent}. The agent's decision-making process is wrapped as follows:
+\begin{itemize}
+    \item \textbf{Pre-processing:} The raw observation from the browser is passed through the \textbf{ObservationFilter}. If attacks are detected, the observation is sanitized in-place.
     \item \textbf{Consistency Check:} For the remaining interactive elements, the TVSC score is computed. Elements with low consistency scores are flagged.
     \item \textbf{Action Generation:} The sanitized observation and the consistency flags are passed to the VLM. If an element is flagged as inconsistent, the agent is prompted to verify it or avoid interacting with it.
-\end{enumerate}
+\end{itemize}
 This multi-layered defense ensures that both low-level structural attacks and high-level semantic perturbations are addressed.
 
 \subsection{Evaluation Metrics}
@@ -220,7 +232,7 @@ To rigorously assess the performance of our defense, we define the following met
 We implement TVSC as a modular wrapper around the base agent. The OCR component uses PaddleOCR v2.7 with the \texttt{en\_PP-OCRv4} model. The Structural View is extracted via Chrome DevTools Protocol (CDP). Position consistency uses IoU, and text consistency uses normalized Levenshtein distance. Default thresholds are $\tau = 0.7$ (execute), $\tau' = 0.4$ (review). All experiments run on a single NVIDIA A100 40GB GPU.
 
 \textbf{Hyperparameter Settings:}
-\textbf{Hyperparameters:} We set $w_p=0.4$ (position), $w_t=0.5$ (text), $w_s=0.1$ (style), with thresholds $\tau=0.7$ (execute) and $\tau'=0.4$ (review). Max steps set to 15.
+We set $w_p=0.4$ (position), $w_t=0.5$ (text), $w_s=0.1$ (style), with thresholds $\tau=0.7$ (execute) and $\tau'=0.4$ (review). Max steps set to 15.
 
 
 \subsection{Attack Generation}
@@ -288,25 +300,6 @@ Reddit & 7.1\% & 16.8\% & +9.7\% \\
 
 The Shopping environment exhibits the highest vulnerability (5.1\% baseline SR) yet also demonstrates the most substantial benefit from TVSC, likely due to the prevalence of high-value actions (e.g., checkout, payment) that attract more sophisticated attacks.
 
-\subsection{Attack Detection Analysis}
-
-\begin{table}[ht]
-\caption{Attack Detection Performance}
-\centering
-\begin{tabular}{|l|c|c|c|}
-\hline
-Metric & Visual Attack & Structural Attack & Hybrid Attack \\
-\hline
-True Positive Rate & 89.3\% & 92.1\% & 87.6\% \\
-False Positive Rate & 4.2\% & 3.8\% & 5.1\% \\
-Precision & 91.5\% & 93.2\% & 89.8\% \\
-F1 Score & 0.904 & 0.926 & 0.887 \\
-\hline
-\end{tabular}
-\end{table}
-
-TVSC achieves high detection rates across all attack types. Structural attacks are easiest to detect because they create obvious text mismatches between DOM and OCR. Hybrid attacks are hardest because they can partially mask inconsistencies.
-
 \subsection{Ablation Study}
 
 \begin{table}[ht]
@@ -327,13 +320,6 @@ Vis + OCR & 12.1\% & -4.4\% \\
 \end{tabular}
 \end{table}
 
-\textbf{Key Findings:}
-\begin{itemize}
-    \item All three views contribute meaningfully to robustness.
-    \item Visual + OCR is the strongest pair (12.1\%), because adversaries struggle to modify pixels without affecting OCR output.
-    \item Triple-view synergy provides an additional +4.4\% over the best pair.
-\end{itemize}
-
 \begin{table}[ht]
 \caption{Ablation of Threshold Settings}
 \centering
@@ -350,6 +336,12 @@ $\tau$ (Execute) & $\tau'$ (Review) & SR\% (Hybrid) & False Reject Rate \\
 \end{tabular}
 \end{table}
 
+\textbf{Key Findings:}
+\begin{itemize}
+    \item All three views contribute meaningfully to robustness.
+    \item Visual + OCR is the strongest pair (12.1\%), because adversaries struggle to modify pixels without affecting OCR output.
+    \item Triple-view synergy provides an additional +4.4\% over the best pair.
+\end{itemize}
 The optimal threshold balances attack detection with false rejection. Too aggressive (0.9/0.6) causes excessive blocking of benign elements.
 
 \textbf{Hyperparameter Sensitivity:}
@@ -383,7 +375,7 @@ VLM inference (GPT-5) & 315 & 59.4\% \\
 \end{tabular}
 \end{table}
 
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=\textwidth]{Figure2_Tradeoff.pdf}
 \caption{Latency vs. Robustness Trade-off}
 \end{figure}
@@ -392,11 +384,53 @@ For latency-sensitive applications, we provide a ``TVSC-Fast'' variant using onl
 
 \subsection{Case Studies}
 
-\textbf{Case 1: Invisible Overlay (Shopping).} In a task to "Add the blue jacket to cart", an invisible div overlays the "Add to Cart" button. The base agent clicks the overlay, failing the task. TVSC detects the mismatch between the Structural View (button) and Visual View (occlusion detected), yielding a low Consistency Score (0.31). The agent rejects the action and re-queries, succeeding.
+\textbf{Case 1: Invisible Overlay Attack (Shopping).}
 
+\textit{Task:} ``Add the blue jacket to cart and proceed to checkout''.
 
-% Case 2 and 3 removed for space
+\textit{Attack:} Invisible \texttt{div} overlays ``Add to Cart'' button, redirects click to ``Add to Wishlist''.
 
+\textit{Base Agent:} Clicks overlay $\rightarrow$ Item added to wishlist $\rightarrow$ Task fails.
+
+\textit{TVSC Detection:} 
+\begin{itemize}
+    \item Structural: \texttt{button[name="Add to Cart"]} at (245, 380).
+    \item OCR: ``Add to Cart'' detected at (243, 378).
+    \item Overlay: No text detected at click interception point.
+    \item Consistency Score: 0.31 ($< \tau' = 0.4$) $\rightarrow$ REJECT. 
+    \item Agent re-queries, finds correct element $\rightarrow$ Task succeeds.
+\end{itemize}
+
+\textbf{Case 2: Homoglyph Phishing (Classifieds).}
+
+\textit{Task:} ``Contact the seller about the vintage camera''.
+
+\textit{Attack:} Seller email uses Cyrillic `a' (U+0430) in domain: \texttt{seller@gm[a]il.com}.
+
+\textit{Base Agent:} Copies malicious email $\rightarrow$ Potential data leak.
+
+\textit{TVSC Detection:}
+\begin{itemize}
+    \item Structural: \texttt{text="seller@gm[a]il.com"}.
+    \item OCR: ``seller@gmail.com'' (OCR normalizes to ASCII).
+    \item Consistency: Char-level Unicode check flags mismatch (0.28) $\rightarrow$ REJECT with warning.
+\end{itemize}
+
+\textbf{Case 3: DOM Injection (Reddit).}
+
+\textit{Task:} ``Upvote the top post about AI safety''.
+
+\textit{Attack:} 500 hidden \texttt{div}s injected with \texttt{aria-label="upvote"} to confuse selection.
+
+\textit{Base Agent:} Context overflow $\rightarrow$ Selects random element $\rightarrow$ Wrong post.
+
+\textit{TVSC Detection:}
+\begin{itemize}
+    \item Filters elements with \texttt{visibility:hidden}.
+    \item Cross-checks with OCR.
+    \item Only 3 valid buttons remain. 
+    \item Correct element selected $\rightarrow$ Task succeeds.
+\end{itemize}
 
 \subsection{Statistical Significance Analysis}
 \textbf{Statistical Significance.} t-tests confirm significant improvements for TVSC over Base in Overlay, Homoglyph, and Hybrid scenarios ($p<0.001$). TVSC also significantly outperforms Input Filtering ($p=0.002$) and Self-Consistency ($p=0.008$).
