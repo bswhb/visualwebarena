@@ -1,0 +1,17 @@
+| 会议                                         | 截稿日期 (Full Paper)            | 模版/出版社                 | 正文篇幅（是否含参考）                            | 盲审                        | 补充材料/其他                             | 主题切口与投递建议                                                                                |
+| ------------------------------------------ | --------------------------- | ---------------------- | -------------------------------------- | ------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------- |
+| **ICPR 2026**（Lyon, Aug 17–22, 2026）       | **2026-01-10**              | **Springer LNCS**      | **≤15 页**（含图表与参考）                      | **单盲**                    | 可选补充材料；设有可申请的“可复现性徽章”               | 设“文档分析与识别”“人机交互/视觉”等轨道；适合把“跨视角一致性 + 视觉-DOM 对齐”作为鲁棒模式识别问题来讲。 ([ICPR2026website][1])       |
+| **ICDAR 2026**（Athens, Aug 31–Sep 4, 2026） | **2026-02-27** (Abst: 02-13)| **Springer LNCS**      | **≤17 页**（含全部内容与参考）                    | **双盲**（需匿名化）              | 允许 rebuttal；明确 LNCS 模版与匿名化要求        | 非常贴合“页面版式/布局扰动 + 文档元素鲁棒解析”；可把 UI 干扰建模为版式变异。 ([icdar2026.org][2])                         |
+| **IJCNN 2026（WCCI）**                       | **2026-01-31**              | **IEEE 双栏**            | **6–8 页**（可付费至 10 页）                   | **双盲**                    | 常见：竞赛/专场/研讨会同版式                     | “多智能体/强化学习 + 对抗鲁棒”切口友好；把跨视角一致性当作策略稳定性/不确定性估计问题。([IJCNN 2025][3])                         |
+| **GECCO 2026**（San José, Jul 13–17, 2026）  | **2026-01-26** (Abst: 01-19)| **ACM（acmart）**        | **全文 ≤8 页**（**不含参考**）；海报 ≤4 页（含参考）     | **双盲**                    | 支持匿名补充材料；ACM 2026 全面 OA（有 APC/减免说明） | 以“演化搜索/AutoRL/策略扰动生成与防御”为角度，做对抗 UI 变异与鲁棒代理的联合优化。 ([GECCO 2026][4])                       |
+| **ICONIP 2025（作 2026 版参考）**                | **预计 2026-05** (Ref '25: 05-15)| **Springer LNCS/CCIS** | **12–15 页**（含参考与附录）                    | **单盲**（OpenReview 平台公开讨论） | 论文将提前在 OpenReview 开放浏览              | 适合做“负责/安全 AI + 多模态智能体评测”专题；注意单盲与公开讨论对匿名策略的影响。 ([ICONIP 2025 :][5])                       |
+| **KSEM 2026** (Guangzhou, China)                 | **2026-01-15**              | **Springer LNCS**      | **常规 12 页**（可加至 **16 页** 付费）；短文 8–10 页 | **双盲**                    | EasyChair 提交；鼓励愿景/综述类               | 从“知识一致性/系统治理”角度切入 Cross-View Consistency（跨视角一致性）的知识层约束与评测。 ([ksem2025.scimeeting.cn][6]) |
+| **ICIP 2026**（备选，图像处理）                     | **2026-01-21**              | **IEEE 双栏**            | **正文 ≤5 页 + 仅参考文献 1 页**                | **双盲**（审稿期限制预印本）          | 提供 OJSP 快轨（期刊审 + 会上展示）              | 若方法更偏视觉鲁棒/图像级 UI 扰动，可作补位投。 ([2026.ieeeicip.org][7])                                      |
+
+[1]: https://icpr2026.org/authors.html "ICPR 2026: Submit a paper | ICPR2026website"
+[2]: https://icdar2026.org/index.php/paper-submission-instruction/ "Paper Submission Instruction – ICDAR 2026"
+[3]: https://2025.ijcnn.org/authors/initial-author-instructions?utm_source=chatgpt.com "Author Instructions"
+[4]: https://gecco-2026.sigevo.org/Call%2Bfor%2BPapers "Call for Papers | GECCO 2026"
+[5]: https://iconip2025.apnns.org/submission/call-for-papers/ "Call for Papers : ICONIP 2025"
+[6]: https://ksem2025.scimeeting.cn/en/web/index/27434_2361950 "KSEM 2025"
+[7]: https://2026.ieeeicip.org/call-for-papers-and-abstracts/?utm_source=chatgpt.com "Call for Papers and Abstracts - ICIP 2026"
